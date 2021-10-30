@@ -7,10 +7,13 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'hello_typescript', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'index', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <div id='root'></div>
+    <div id='root'>
+    </div>
   </body>
 </html>
+
+<%= javascript_pack_tag 'index', 'data-turbolinks-track': 'reload' %>
