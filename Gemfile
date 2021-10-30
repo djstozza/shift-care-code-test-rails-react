@@ -29,6 +29,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Handle admins
 gem 'devise'
 
+# Decode JSON Web Tokens
+gem 'jwt'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
