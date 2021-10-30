@@ -1,7 +1,11 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.3'
+ruby '2.7.2'
+
+# Configure ENV from .env files
+# Load this first so ENV is available for other gems
+gem 'dotenv-rails', groups: %i[development test]
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.0.4', '>= 6.0.4.1'
@@ -30,10 +34,34 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+
+  # Style and Lint checking
+  gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
+
+  # Identify inefficient ActiveRecord queries
+  gem 'bullet'
+
+  # Test framework
+  gem 'rspec-rails'
+
+  # Use ActiveRecord factories for testing
+  gem 'factory_bot_rails'
+
+  # REPL based inspection and debugging
+  gem 'pry'
 end
 
 group :development do
+  # Summarise the schema of models
+  gem 'annotate'
+
+  # Static analysis of code
+  gem 'brakeman'
+
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.2'
@@ -42,5 +70,16 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+group :test do
+  # Helpful matchers in rspec
+  gem 'shoulda-matchers'
+
+  # Clean database during spec runs
+  gem 'database_cleaner'
+
+  # Give code coverage metrics
+  gem 'simplecov', require: false
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
