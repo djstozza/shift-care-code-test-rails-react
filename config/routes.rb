@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :clients, only: %i[index create update]
+    resources :plumbers, only: %i[index create update]
     resources :jobs, only: %i[index create show update]
   end
 
