@@ -18,10 +18,19 @@
 #
 #  index_addresses_on_addressable_type_and_addressable_id  (addressable_type,addressable_id)
 #
-class Address < ApplicationRecord
-  has_paper_trail
 
-  belongs_to :addressable, polymorphic: true
+class AddressSerializer < BaseSerializer
+  ATTRS = %w[
+    id
+    address_line_1
+    address_line_2
+    suburb
+    state
+    post_code
+    country
+  ].freeze
 
-  validates :address_line_1, :suburb, :state, :post_code, :country, presence: true
+  def serializable_hash(*)
+    attributes.slice(*ATTRS)
+  end
 end

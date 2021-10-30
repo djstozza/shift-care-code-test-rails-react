@@ -15,18 +15,26 @@
 #
 #  index_clients_on_email  (email) UNIQUE
 #
-class Client < ApplicationRecord
-  has_paper_trail
 
-  include ActionView::Helpers::DateHelper
+class ClientSerializer < BaseSerializer
+  ATTRS = %w[
+    id
+    email
+    first_name
+    last_name
+    date_of_birth
+  ].freeze
 
-  has_one :address, as: :addressable, dependent: :destroy
+  def serializable_hash(*)
+    attributes.slice(*ATTRS).tap do |attrs|
+      attrs[:private_note] = private_note if includes[:private_note]
+      attrs[:address] = serialized_address if includes[:address]
+    end
+  end
 
-  validates :address, presence: true
-  validates :email, :first_name, :last_name, :date_of_birth, presence: true
-  validates :email, uniqueness: true, allow_blank: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  private
 
-  def age
-    ((Time.current - date_of_birth.to_time) / 1.year.seconds).floor
+  def serialized_address
+    AddressSerializer.new(address)
   end
 end

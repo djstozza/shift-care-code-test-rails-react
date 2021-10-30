@@ -13,14 +13,24 @@
 #
 #  index_plumbers_on_email  (email) UNIQUE
 #
-class Plumber < ApplicationRecord
-  has_paper_trail
 
-  has_one :address, as: :addressable, dependent: :destroy
-  has_many :vehicles
-  has_and_belongs_to_many :jobs
+class PlumberSerializer < BaseSerializer
+  ATTRS = %w[
+    id
+    email
+    first_name
+    last_name
+  ].freeze
 
-  validates :address, presence: true
-  validates :email, :first_name, :last_name, presence: true
-  validates :email, uniqueness: true, allow_blank: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  def serializable_hash(*)
+    attributes.slice(*ATTRS).tap do |attrs|
+      attrs[:address] = serialized_address if includes[:address]
+    end
+  end
+
+  private
+
+  def serialized_address
+    AddressSerializer.new(address)
+  end
 end

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
         patch :update, on: :collection
       end
     end
+
+    resources :jobs, only: %i[index create show update]
   end
 
   # Catch all for HTML 5 history routing. This must be the last route.
