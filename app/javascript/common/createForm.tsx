@@ -113,7 +113,7 @@ export const CreateForm = (props: Props) => {
                 label='First Name'
                 name='firstName'
                 onChange={({ target: { value }}) => setFirstName(value)}
-                value={email}
+                value={firstName}
                 error={Boolean(errors.find(({ source }) => source.includes('first_name')))}
                 helperText={errors.find(({ source }) => source === 'first_name')?.detail}
               />
@@ -189,7 +189,6 @@ export const CreateForm = (props: Props) => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                required
                 fullWidth
                 variant='outlined'
                 label='Address Line 2'
@@ -219,7 +218,7 @@ export const CreateForm = (props: Props) => {
                 label='State'
                 name='state'
                 onChange={({ target: { value }}) => setState(value)}
-                value={lastName}
+                value={state}
                 error={Boolean(errors.find(({ source }) => source.includes('state')))}
                 helperText={errors.find(({ source }) => source.includes('state'))?.detail}
               />
