@@ -1,5 +1,4 @@
 import { expectSaga } from 'redux-saga-test-plan'
-import { decamelizeKeys } from 'humps'
 
 import authSagas, * as sagas from './sagas'
 import * as actions from './actions'
@@ -11,6 +10,7 @@ import {
   JOBS_URL
 } from 'utilities/constants'
 import { success, failure } from 'utilities/actions'
+import { decamelize } from 'utilities/helpers'
 import history from 'state/history'
 import { authKey } from 'utilities/stateLoader'
 
@@ -23,7 +23,7 @@ describe('Auth sagas', () => {
         type: requestActions.UNAUTHED_REQUEST,
         method: 'POST',
         url: `${API_URL}${API_SESSIONS_PATH}`,
-        body: { admin: decamelizeKeys(admin) },
+        body: { admin: decamelize(admin) },
         successAction: success(actions.API_SESSIONS_CREATE),
         failureAction: failure(actions.API_SESSIONS_CREATE)
       })

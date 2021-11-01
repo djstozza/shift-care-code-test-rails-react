@@ -6,7 +6,8 @@ import {
   TextField,
   Button,
   Theme,
-  Paper
+  Paper,
+  Grid
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
@@ -25,36 +26,17 @@ type Props = {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
-  form: {
-    display: 'flex',
-    position: 'fixed',
-    [theme.breakpoints.up('sm')]: {
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)'
-    },
-    [theme.breakpoints.down('sm')]: {
-      width: '100vw',
-      top: '22.5%'
-    },
+  container: {
+    minHeight: '100vh',
+    border: theme.spacing(0.375),
+    boxSizing: 'border-box'
   },
   paper: {
     padding: theme.spacing(3),
-    width: theme.spacing(50),
-    [theme.breakpoints.down('sm')]: {
-      width: '100vw'
-    }
+    maxWidth: theme.spacing(80)
   },
   textField: {
     paddingBottom: theme.spacing(2)
-  },
-  actions: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  noWrap: {
-    whiteSpace: 'nowrap'
   }
 }))
 
@@ -76,56 +58,65 @@ export const LoginPage = (props: Props) => {
   const classes = useStyles()
 
   return (
-    <form onSubmit={handleSubmit} className={classes.form}>
-      <Paper className={classes.paper}>
-        <Typography variant='h5' className={classes.textField}>
-          Log in
-        </Typography>
-        <Box mb={2}>
-          <TextField
-            required
-            fullWidth
-            variant='outlined'
-            label='Email'
-            name='email'
-            type='email'
-            onChange={({ target: { value }}) => setEmail(value)}
-            value={email}
-            error={Boolean(errors.find(({ source }) => source.includes('email')))}
-            helperText={errors.find(({ source }) => source === 'email')?.detail}
-          />
-        </Box>
-        <Box mb={2}>
-          <TextField
-            required
-            fullWidth
-            variant='outlined'
-            label='Password'
-            name='password'
-            type='password'
-            onChange={({ target: { value }}) => setPassword(value)}
-            value={password}
-            InputProps={{
-              autoComplete: 'off'
-            }}
-            error={Boolean(errors.find(({ source }) => source.includes('password')))}
-            helperText={errors.find(({ source }) => source.includes('password'))?.detail}
-          />
-        </Box>
 
-        <div className={classes.actions}>
-          <Button
-            className={classes.noWrap}
-            type='submit'
-            disabled={!email || !password || submitting}
-            variant='contained'
-            color='primary'
-          >
+    <Box
+      display='flex'
+      justifyContent='center'
+      alignItems='center'
+      height='100vh'
+    >
+      <form onSubmit={handleSubmit}>
+        <Paper className={classes.paper}>
+          <Typography variant='h5' className={classes.textField}>
             Log in
-          </Button>
-        </div>
-      </Paper>
-    </form>
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                variant='outlined'
+                label='Email'
+                name='email'
+                type='email'
+                onChange={({ target: { value }}) => setEmail(value)}
+                value={email}
+                error={Boolean(errors.find(({ source }) => source.includes('email')))}
+                helperText={errors.find(({ source }) => source === 'email')?.detail}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                variant='outlined'
+                label='Password'
+                name='password'
+                type='password'
+                onChange={({ target: { value }}) => setPassword(value)}
+                value={password}
+                InputProps={{
+                  autoComplete: 'off'
+                }}
+                error={Boolean(errors.find(({ source }) => source.includes('password')))}
+                helperText={errors.find(({ source }) => source.includes('password'))?.detail}
+              />
+            </Grid>
+          </Grid>
+
+          <Box mt={2} display='flex' justifyContent='end'>
+            <Button
+              type='submit'
+              disabled={!email || !password || submitting}
+              variant='contained'
+              color='primary'
+            >
+              Log in
+            </Button>
+          </Box>
+        </Paper>
+      </form>
+    </Box>
   )
 }
 

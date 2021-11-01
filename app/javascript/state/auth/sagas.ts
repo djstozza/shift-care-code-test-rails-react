@@ -1,5 +1,4 @@
 import { put, takeLatest, takeEvery, all } from 'redux-saga/effects'
-import { decamelizeKeys } from 'humps'
 
 import {
   API_URL,
@@ -8,6 +7,7 @@ import {
   JOBS_URL
 } from 'utilities/constants'
 import { success, failure } from 'utilities/actions'
+import { decamelize } from 'utilities/helpers'
 import * as actions from './actions'
 import * as requestActions from 'state/request/actions'
 import history from 'state/history'
@@ -20,7 +20,7 @@ export function * logIn (action) : Generator<any, any, any> {
   yield put({
     type: requestActions.UNAUTHED_REQUEST,
     method: 'POST',
-    body: { admin: decamelizeKeys(admin) },
+    body: { admin: decamelize(admin) },
     url,
     successAction: success(actions.API_SESSIONS_CREATE),
     failureAction: failure(actions.API_SESSIONS_CREATE)

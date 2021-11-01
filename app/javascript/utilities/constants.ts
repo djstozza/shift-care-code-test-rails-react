@@ -1,6 +1,7 @@
 export const API_URL = '/api'
 export const LOGIN_URL = '/login'
 export const JOBS_URL = '/jobs'
+export const CLIENTS_URL = '/clients'
 export const API_SESSIONS_PATH = '/sessions'
 
 export const APPLICATION_ERRORS = {
