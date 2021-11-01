@@ -5,6 +5,7 @@ export const ADMIN_1 = {
 }
 
 export const CLIENT_BASE_1 = {
+  id: '12',
   firstName: 'Walter',
   lastName: 'White',
   dateOfBirth: '07/09/1958',
@@ -25,6 +26,7 @@ export const CLIENT_1 = {
 
 
 export const CLIENT_BASE_2 = {
+  id: '34',
   firstName: 'Jerry',
   lastName: 'Seinfeld',
   dateOfBirth: '1954-04-29',
@@ -50,6 +52,7 @@ export const BASE_CLIENTS = [
 ]
 
 export const PLUMBER_BASE_1 = {
+  id: '58',
   firstName: 'Tony',
   lastName: 'Soprano',
   email: 'gabagool@soprano.com'
@@ -64,6 +67,7 @@ export const ADDRESS_3 = {
 }
 
 export const PLUMBER_BASE_2 = {
+  id: '79',
   firstName: 'Sherlock',
   lastName: 'Holmes',
   email: 'elementary@watson.com'
@@ -72,4 +76,19 @@ export const PLUMBER_BASE_2 = {
 export const BASE_PLUMBERS = [
   PLUMBER_BASE_1,
   PLUMBER_BASE_2
+]
+
+export const JOBS = [
+  {
+    startTime: '2021-11-01T03:02:19Z',
+    endTime: '2021-11-01T07:01:23Z',
+    client: CLIENT_1,
+    plumbers: [PLUMBER_BASE_1]
+  },
+  {
+    startTime: '2021-11-01T06:07:21Z',
+    endTime: '2021-11-01T10:07:39Z',
+    client: CLIENT_2,
+    plumbers: [PLUMBER_BASE_2]
+  }
 ]

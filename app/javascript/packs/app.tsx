@@ -7,11 +7,13 @@ import LoadingBar from 'react-redux-loading-bar'
 import LoginPage from 'pages/loginPage'
 import NewClientPage from 'pages/newClientPage'
 import NewPlumberPage from 'pages/newPlumberPage'
+import NewJobPage from 'pages/newJobPage'
 
 import {
   LOGIN_URL,
   CLIENTS_URL,
-  PLUMBERS_URL
+  PLUMBERS_URL,
+  JOBS_URL
 } from 'utilities/constants'
 
 const theme = createTheme()
@@ -24,6 +26,7 @@ const App = () => {
         <Route exact path={LOGIN_URL} render={(props) => <LoginPage {...props} />} />
         <Route exact path={`${CLIENTS_URL}/new`} render={(props) => <NewClientPage {...props} />} />
         <Route exact path={`${PLUMBERS_URL}/new`} render={(props) => <NewPlumberPage {...props} />} />
+        <Route exact path={`${JOBS_URL}/new`} render={(props) => <NewJobPage {...props} />} />
       </Switch>
     </ThemeProvider>
   );

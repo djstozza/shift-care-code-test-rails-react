@@ -11,6 +11,7 @@ export type Admin = {
 }
 
 export type BaseResource = {
+  id: string,
   firstName: string,
   lastName: string,
   email: string
@@ -53,4 +54,12 @@ export type Error = {
   title: string,
   detail: string,
   source: string
+}
+
+export type Job = {
+  id: string,
+  startTime: string,
+  endTime: string,
+  client: Client,
+  plumbers: PlumberBase[]
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+
 import {
   Typography,
   Grid,
@@ -22,7 +22,6 @@ import { clientsActions } from 'state/clients'
 import type { Error } from 'types'
 
 type Props = {
-  token?: string,
   submitting: boolean,
   create: Function,
   initializeForm: () => void,
@@ -36,9 +35,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   paper: {
     padding: theme.spacing(3),
     maxWidth: theme.spacing(80)
-  },
-  textField: {
-    paddingBottom: theme.spacing(2)
   }
 }))
 
@@ -103,9 +99,11 @@ export const CreateForm = (props: Props) => {
     >
       <form onSubmit={handleSubmit}>
         <Paper className={classes.paper}>
-          <Typography variant='h5' className={classes.textField}>
-            New {capitalize(resource)}
-          </Typography>
+          <Box mb={2}>
+            <Typography variant='h5'>
+              New {capitalize(resource)}
+            </Typography>
+          </Box>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
