@@ -31,7 +31,7 @@ describe('NewClientPage', () => {
   const firstNameInput = wrapper => wrapper.find({ name: 'firstName' }).find('input')
   const lastNameInput = wrapper => wrapper.find({ name: 'lastName' }).find('input')
   const emailInput = wrapper => wrapper.find({ name: 'email' }).find('input')
-  const dateOfBirthInput = wrapper => wrapper.find('ForwardRef(DatePicker)').find('input')
+  const dateOfBirthInput = wrapper => wrapper.find({ name: 'dateOfBirth' }).find('input')
   const addressLine1Input = wrapper => wrapper.find({ name: 'addressLine1' }).find('input')
   const addressLine2Input = wrapper => wrapper.find({ name: 'addressLine2' }).find('input')
   const suburbInput = wrapper => wrapper.find({ name: 'suburb' }).find('input')
@@ -64,10 +64,7 @@ describe('NewClientPage', () => {
     emailInput(wrapper).simulate('change', { target: { value: CLIENT_BASE_1.email } })
     expect(submitButton(wrapper).props().disabled).toEqual(true)
 
-    dateOfBirthInput(wrapper).simulate('click')
-
-    wrapper.find('MuiPickersDayRoot').find('button').at(1).simulate('click')
-    dateOfBirthInput(wrapper).simulate('click')
+    dateOfBirthInput(wrapper).simulate('change', { target: { value: CLIENT_BASE_1.dateOfBirth } })
     expect(submitButton(wrapper).props().disabled).toEqual(true)
 
     addressLine1Input(wrapper).simulate('change', { target: { value: ADDRESS_1.addressLine1 } })
@@ -90,7 +87,17 @@ describe('NewClientPage', () => {
 
     submitButton(wrapper).simulate('submit')
 
-    expect(create).toHaveBeenCalled()
+    expect(create).toHaveBeenCalledWith({
+      client: {
+        firstName: CLIENT_BASE_1.firstName,
+        lastName: CLIENT_BASE_1.lastName,
+        dateOfBirth: CLIENT_BASE_1.dateOfBirth,
+        email: CLIENT_BASE_1.email,
+        ...ADDRESS_1,
+        addressLine2: undefined,
+        privateNote: ''
+      }
+    })
   })
 
   it('disables the submit button when submitting = true', () => {

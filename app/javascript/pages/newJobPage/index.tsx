@@ -97,8 +97,6 @@ export const NewJobPage = (props: Props) => {
     !endTime
   )
 
-  console.log(errors)
-
   return (
     <Box
       display='flex'
@@ -137,7 +135,6 @@ export const NewJobPage = (props: Props) => {
                 autoComplete
                 multiple
                 onChange={(_, selected) => {
-                  console.log(selected)
                   const newValue = selected.map(({ value }) => value)
 
                   setPlumberIds(newValue)

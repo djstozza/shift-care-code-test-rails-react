@@ -148,24 +148,17 @@ export const CreateForm = (props: Props) => {
             {
               showDateOfBirth &&
               <Grid item xs={12}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    label='Date of Birth'
-                    value={dateOfBirth}
-                    onChange={(newValue) => setDateOfBirth(newValue)}
-                    renderInput={
-                      (params) => (
-                        <TextField
-                          required
-                          fullWidth
-                          error={Boolean(errors.find(({ source }) => source.includes('date_of_birth')))}
-                          helperText={errors.find(({ source }) => source === 'date_of_birth')?.detail}
-                          {...params}
-                        />
-                      )
-                    }
-                  />
-                </LocalizationProvider>
+                <TextField
+                  label='Date of Birth'
+                  type='date'
+                  name='dateOfBirth'
+                  fullWidth
+                  defaultValue={dateOfBirth}
+                  onChange={({ target: { value } }) => setDateOfBirth(value)}
+                  InputLabelProps={{ shrink: true }}
+                  error={Boolean(errors.find(({ source }) => source.includes('date_of_birth')))}
+                  helperText={errors.find(({ source }) => source === 'date_of_birth')?.detail}
+                />
               </Grid>
             }
             {
