@@ -8,6 +8,7 @@ import LoginPage from 'pages/loginPage'
 import NewClientPage from 'pages/newClientPage'
 import NewPlumberPage from 'pages/newPlumberPage'
 import NewJobPage from 'pages/newJobPage'
+import PrivateRoute from './privateRoute'
 
 import {
   LOGIN_URL,
@@ -23,10 +24,14 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <LoadingBar />
       <Switch>
-        <Route exact path={LOGIN_URL} render={(props) => <LoginPage {...props} />} />
-        <Route exact path={`${CLIENTS_URL}/new`} render={(props) => <NewClientPage {...props} />} />
-        <Route exact path={`${PLUMBERS_URL}/new`} render={(props) => <NewPlumberPage {...props} />} />
-        <Route exact path={`${JOBS_URL}/new`} render={(props) => <NewJobPage {...props} />} />
+        <Route path={LOGIN_URL} render={(props) => <LoginPage {...props} />} />
+        <PrivateRoute>
+          <Switch>
+            <Route exact path={`${CLIENTS_URL}/new`} render={(props) => <NewClientPage {...props} />} />
+            <Route exact path={`${PLUMBERS_URL}/new`} render={(props) => <NewPlumberPage {...props} />} />
+            <Route exact path={`${JOBS_URL}/new`} render={(props) => <NewJobPage {...props} />} />
+          </Switch>
+        </PrivateRoute>
       </Switch>
     </ThemeProvider>
   );

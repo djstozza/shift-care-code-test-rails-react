@@ -41,7 +41,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export const LoginPage = (props: Props) => {
-
   const { logIn, errors = [], submitting, initializeAuth } = props
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -58,7 +57,6 @@ export const LoginPage = (props: Props) => {
   const classes = useStyles()
 
   return (
-
     <Box
       display='flex'
       justifyContent='center'
