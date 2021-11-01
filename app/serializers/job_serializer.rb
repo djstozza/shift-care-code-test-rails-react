@@ -25,7 +25,7 @@ class JobSerializer < BaseSerializer
   def serializable_hash(*)
     attributes.slice(*ATTRS).tap do |attrs|
       attrs[:client] = serialized_client
-      attrs[:plumbers] = serialized_pumbers
+      attrs[:plumbers] = serialized_plumbers
     end
   end
 
@@ -35,7 +35,7 @@ class JobSerializer < BaseSerializer
     ClientSerializer.new(client, address: true)
   end
 
-  def serialized_pumbers
+  def serialized_plumbers
     PlumberSerializer.map(plumbers)
   end
 end

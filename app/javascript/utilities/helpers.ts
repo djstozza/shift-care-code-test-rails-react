@@ -25,3 +25,5 @@ export const stringify = (query: Query): string => {
     filter: query.filter && commaJoinValues(query.filter)
   })
 }
+
+export const capitalize = (word: string) => word[0].toUpperCase() + word.slice(1)

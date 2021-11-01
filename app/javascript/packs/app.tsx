@@ -5,11 +5,13 @@ import { createTheme } from '@mui/material/styles'
 import LoadingBar from 'react-redux-loading-bar'
 
 import LoginPage from 'pages/loginPage'
-import ClientPage from 'pages/clientPage'
+import NewClientPage from 'pages/newClientPage'
+import NewPlumberPage from 'pages/newPlumberPage'
 
 import {
   LOGIN_URL,
-  CLIENTS_URL
+  CLIENTS_URL,
+  PLUMBERS_URL
 } from 'utilities/constants'
 
 const theme = createTheme()
@@ -20,7 +22,8 @@ const App = () => {
       <LoadingBar />
       <Switch>
         <Route exact path={LOGIN_URL} render={(props) => <LoginPage {...props} />} />
-        <Route exact path={`${CLIENTS_URL}/new`} render={(props) => <ClientPage {...props} />} />
+        <Route exact path={`${CLIENTS_URL}/new`} render={(props) => <NewClientPage {...props} />} />
+        <Route exact path={`${PLUMBERS_URL}/new`} render={(props) => <NewPlumberPage {...props} />} />
       </Switch>
     </ThemeProvider>
   );

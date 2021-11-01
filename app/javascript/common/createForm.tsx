@@ -7,8 +7,7 @@ import {
   Button,
   Theme,
   Paper,
-  Box,
-
+  Box
 } from '@mui/material'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import {
@@ -17,8 +16,7 @@ import {
 } from '@mui/lab'
 import { makeStyles } from '@mui/styles'
 
-import Link from 'components/common/link'
-
+import { capitalize } from 'utilities/helpers'
 import { clientsActions } from 'state/clients'
 
 import type { Error } from 'types'
@@ -28,7 +26,10 @@ type Props = {
   submitting: boolean,
   create: Function,
   initializeForm: () => void,
-  errors: Error[]
+  errors: Error[],
+  showDateOfBirth: boolean,
+  showPrivateNote: boolean,
+  resource: string
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -41,8 +42,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export const ClientPage = (props: Props) => {
-  const { create, errors = [], submitting, initializeForm } = props
+export const CreateForm = (props: Props) => {
+  const { create, errors = [], submitting, initializeForm, showDateOfBirth, showPrivateNote, resource } = props
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -57,8 +58,9 @@ export const ClientPage = (props: Props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
     create({
-      client: {
+      [resource]: {
         firstName,
         lastName,
         email,
@@ -84,7 +86,7 @@ export const ClientPage = (props: Props) => {
     !firstName ||
     !lastName ||
     !email ||
-    !dateOfBirth ||
+    (showDateOfBirth && !dateOfBirth) ||
     !addressLine1 ||
     !suburb ||
     !state ||
@@ -102,7 +104,7 @@ export const ClientPage = (props: Props) => {
       <form onSubmit={handleSubmit}>
         <Paper className={classes.paper}>
           <Typography variant='h5' className={classes.textField}>
-            New Client
+            New {capitalize(resource)}
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -145,36 +147,42 @@ export const ClientPage = (props: Props) => {
                 helperText={errors.find(({ source }) => source === 'email')?.detail}
               />
             </Grid>
-            <Grid item xs={12}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  label='Date of Birth'
-                  value={dateOfBirth}
-                  onChange={(newValue) => setDateOfBirth(newValue)}
-                  renderInput={
-                    (params) => (
-                      <TextField
-                        required
-                        fullWidth
-                        error={Boolean(errors.find(({ source }) => source.includes('date_of_birth')))}
-                        helperText={errors.find(({ source }) => source === 'date_of_birth')?.detail}
-                        {...params}
-                      />
-                    )
-                  }
+            {
+              showDateOfBirth &&
+              <Grid item xs={12}>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    label='Date of Birth'
+                    value={dateOfBirth}
+                    onChange={(newValue) => setDateOfBirth(newValue)}
+                    renderInput={
+                      (params) => (
+                        <TextField
+                          required
+                          fullWidth
+                          error={Boolean(errors.find(({ source }) => source.includes('date_of_birth')))}
+                          helperText={errors.find(({ source }) => source === 'date_of_birth')?.detail}
+                          {...params}
+                        />
+                      )
+                    }
+                  />
+                </LocalizationProvider>
+              </Grid>
+            }
+            {
+              showPrivateNote &&
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  variant='outlined'
+                  label='Private Note'
+                  name='privateNote'
+                  onChange={({ target: { value }}) => setPrivateNote(value)}
+                  value={privateNote}
                 />
-              </LocalizationProvider>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                variant='outlined'
-                label='Private Note'
-                name='privateNote'
-                onChange={({ target: { value }}) => setPrivateNote(value)}
-                value={privateNote}
-              />
-            </Grid>
+              </Grid>
+            }
             <Grid item xs={12}>
               <TextField
                 required
@@ -269,15 +277,4 @@ export const ClientPage = (props: Props) => {
   )
 }
 
-const mapStateToProps = ({ clients: { errors = [], submitting } }) => ({
-  errors,
-  submitting
-})
-
-const matchDispatchToProps = {
-  initializeForm: clientsActions.initializeClientForm,
-  create: clientsActions.createClient
-}
-
-
-export default connect(mapStateToProps, matchDispatchToProps)(ClientPage)
+export default CreateForm

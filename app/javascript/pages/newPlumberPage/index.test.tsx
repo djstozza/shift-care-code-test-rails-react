@@ -1,18 +1,17 @@
-// import { createMount } from '@mui/material/test-utils'
 import React from 'react'
 import { mount } from 'enzyme'
 
-import ConnectedClientPage, { ClientPage } from '.'
+import ConnectedNewPlumberPage, { NewPlumberPage } from '.'
 import { MuiWrapper, MockedRouterStore, blank__ } from 'test/helpers'
 import { decamelize } from 'utilities/helpers'
 
 import { CLIENT_BASE_1, ADDRESS_1 } from 'test/fixtures'
 
-describe('ClientPage', () => {
+describe('NewPlumberPage', () => {
   const render = (props = {}) => mount(
     <MuiWrapper>
       <MockedRouterStore>
-        <ClientPage
+        <NewPlumberPage
           initializeForm={blank__}
           create={blank__}
           {...props}
@@ -24,7 +23,7 @@ describe('ClientPage', () => {
   const connectedRender = (state = {}) => mount(
     <MuiWrapper>
       <MockedRouterStore defaultState={{...state }}>
-        <ConnectedClientPage initializeAuth={blank__} />
+        <ConnectedNewPlumberPage initializeAuth={blank__} />
       </MockedRouterStore>
     </MuiWrapper>
   )
@@ -63,13 +62,6 @@ describe('ClientPage', () => {
     expect(submitButton(wrapper).props().disabled).toEqual(true)
 
     emailInput(wrapper).simulate('change', { target: { value: CLIENT_BASE_1.email } })
-
-    dateOfBirthInput(wrapper).simulate('click')
-
-    wrapper.find('MuiPickersDayRoot').find('button').at(1).simulate('click')
-    dateOfBirthInput(wrapper).simulate('click')
-    expect(submitButton(wrapper).props().disabled).toEqual(true)
-
     expect(submitButton(wrapper).props().disabled).toEqual(true)
 
     addressLine1Input(wrapper).simulate('change', { target: { value: ADDRESS_1.addressLine1 } })
@@ -96,7 +88,7 @@ describe('ClientPage', () => {
   })
 
   it('disables the submit button when submitting = true', () => {
-    const wrapper = connectedRender({ clients: { submitting: true } })
+    const wrapper = connectedRender({ plumbers: { submitting: true } })
 
     expect(submitButton(wrapper).props().disabled).toEqual(true)
   })
@@ -109,7 +101,7 @@ describe('ClientPage', () => {
       title: 'Is Invalid'
     }))
 
-    const wrapper = connectedRender({ clients: { errors } })
+    const wrapper = connectedRender({ plumbers: { errors } })
 
     expect(firstNameInput(wrapper).props()['aria-invalid']).toEqual(true)
     expect(lastNameInput(wrapper).props()['aria-invalid']).toEqual(true)

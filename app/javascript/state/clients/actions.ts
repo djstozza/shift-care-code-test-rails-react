@@ -5,6 +5,7 @@ export const API_CLIENTS_CREATE = 'API_CLIENTS_CREATE'
 type ClientProps = {
   firstName: string,
   lastName: string,
+  email: string,
   dateOfBirth: string,
   privateNote?: string,
   addressLine1: string,

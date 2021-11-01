@@ -48,3 +48,28 @@ export const BASE_CLIENTS = [
   CLIENT_BASE_1,
   CLIENT_BASE_2
 ]
+
+export const PLUMBER_BASE_1 = {
+  firstName: 'Tony',
+  lastName: 'Soprano',
+  email: 'gabagool@soprano.com'
+}
+
+export const ADDRESS_3 = {
+  addressLine1: '14 Aspen Dr',
+  suburb: 'Caldwell',
+  state: 'NJ',
+  postCode: '07006',
+  country: 'USA'
+}
+
+export const PLUMBER_BASE_2 = {
+  firstName: 'Sherlock',
+  lastName: 'Holmes',
+  email: 'elementary@watson.com'
+}
+
+export const BASE_PLUMBERS = [
+  PLUMBER_BASE_1,
+  PLUMBER_BASE_2
+]
