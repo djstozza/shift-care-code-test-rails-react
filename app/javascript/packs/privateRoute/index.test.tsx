@@ -43,13 +43,13 @@ describe('PrivateRoute', () => {
     const updateSession = jest.fn()
     const wrapper = render({ admin: ADMIN_1, updateSession }, { auth: { admin: ADMIN_1 } })
 
-    expect(wrapper.text()).toEqual('Child component')
+    expect(wrapper.text()).toContain('Child component')
     expect(updateSession).toHaveBeenCalled()
   })
 
   it('renders the connected component', () => {
     const wrapper = connectedRender({ auth: { admin: ADMIN_1 } })
 
-    expect(wrapper.text()).toEqual('Child component')
+    expect(wrapper.text()).toContain('Child component')
   })
 })
