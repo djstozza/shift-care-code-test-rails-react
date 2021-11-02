@@ -1,6 +1,7 @@
 import { success, failure } from 'utilities/actions'
 import reducer, { initialState } from './reducer'
 import * as actions from './actions'
+import moment from 'moment'
 
 import { JOBS } from 'test/fixtures'
 
@@ -25,10 +26,14 @@ describe('Jobs reducer handles action', () => {
   })
 
   test(actions.API_JOBS_INDEX, () => {
+    const startTime = moment().toISOString()
+    const view = 'week'
     expect(reducer(initialState, {
-      type: actions.API_JOBS_INDEX
+      type: actions.API_JOBS_INDEX,
+      startTime,
+      view
     }))
-      .toEqual({ ...initialState, fetching: true })
+      .toEqual({ ...initialState, startTime, view, fetching: true })
   })
 
   test(actions.API_JOBS_CREATE, () => {

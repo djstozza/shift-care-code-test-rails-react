@@ -10,11 +10,11 @@ describe('Jobs actions', () => {
   })
 
   test('fetchJobs', () => {
-    expect(actions.fetchJobs({ startTime, endTime }))
-      .toEqual({ type: actions.API_JOBS_INDEX, startTime, endTime })
+    expect(actions.fetchJobs({ startTime }))
+      .toEqual({ type: actions.API_JOBS_INDEX, startTime })
 
-    expect(actions.fetchJobs({ startTime, endTime, plumberId }))
-      .toEqual({ type: actions.API_JOBS_INDEX, startTime, endTime, plumberId })
+    expect(actions.fetchJobs({ startTime, plumberId }))
+      .toEqual({ type: actions.API_JOBS_INDEX, startTime, plumberId })
   })
 
   test('createJob', () => {
