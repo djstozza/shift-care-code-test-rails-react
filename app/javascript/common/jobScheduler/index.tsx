@@ -1,7 +1,12 @@
 import * as React from 'react'
-import Paper from '@material-ui/core/Paper'
-import LinearProgress from '@material-ui/core/LinearProgress'
-import { withStyles } from '@material-ui/core/styles'
+import {
+  makeStyles,
+  Theme,
+  LinearProgress,
+  Paper
+} from '@material-ui/core'
+import { Autocomplete } from '@material-ui/lab'
+import classnames from 'classnames'
 import {
   ViewState,
 } from '@devexpress/dx-react-scheduler'
@@ -15,7 +20,7 @@ import {
   ViewSwitcher,
   AppointmentForm,
   AppointmentTooltip,
-  TodayButton,
+  TodayButton
 } from '@devexpress/dx-react-scheduler-material-ui'
 import { useLocation } from 'react-router-dom'
 import qs from 'qs'
@@ -23,28 +28,64 @@ import moment from 'moment'
 
 import { capitalize } from 'utilities/helpers'
 
-const styles = {
+const useStyles = makeStyles((theme: Theme) => ({
   toolbarRoot: {
-    position: 'relative',
+    position: 'relative'
   },
   progress: {
     position: 'absolute',
     width: '100%',
     bottom: 0,
-    left: 0,
+    left: 0
   },
-};
+  listContainer: {
+    paddingLeft: theme.spacing(2),
+    marginTop: 0
+  },
+  listItem: {
+    whiteSpace: 'normal',
+    wordWrap: 'break-word'
+  }
+}))
 
-const ToolbarWithLoading = withStyles(styles, { name: 'Toolbar' })(
-  ({ children, classes, ...restProps }) => (
+const ToolbarWithLoading = ({ children, ...restProps }) => {
+  const classes = useStyles()
+
+  return (
     <div className={classes.toolbarRoot}>
       <Toolbar.Root {...restProps}>
         {children}
       </Toolbar.Root>
       <LinearProgress className={classes.progress} />
     </div>
-  ),
-);
+  )
+}
+
+const AppointmentContent = ({ data, ...restProps }) =>  {
+  const classes = useStyles()
+
+  return (
+    <Appointments.AppointmentContent {...restProps} data={data}>
+      <div className={classes.container}>
+        <div className={classes.text}>
+          {data.title}
+        </div>
+
+        <div>
+          Plumbers:
+          <ul className={classes.listContainer}>
+            {
+              data.plumbers.map(({ firstName, lastName}) => (
+                <li className={classes.listItem}>{firstName} {lastName}</li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </Appointments.AppointmentContent>
+  );
+}
+
 const JobScheduler = (props) => {
   const { jobs, fetching, startTime, view = 'Week', updateSchedule } = props
   const { search } = useLocation()
@@ -79,7 +120,10 @@ const JobScheduler = (props) => {
         />
         <DayView />
         <WeekView />
-        <Appointments />
+        <Appointments
+          appointmentContentComponent={AppointmentContent}
+        />
+
         <Toolbar
           {...fetching ? { rootComponent: ToolbarWithLoading } : null}
         />
@@ -87,7 +131,6 @@ const JobScheduler = (props) => {
         <TodayButton />
         <ViewSwitcher />
         <AppointmentTooltip
-          showOpenButton
           showCloseButton
         />
         <AppointmentForm readOnly />
