@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Redirect, useLocation } from 'react-router-dom'
 
 import { authActions } from 'state/auth'
 import { LOGIN_URL } from 'utilities/constants'
+import NavBar from '../navBar'
 
 import type { Admin } from 'types'
 
@@ -25,7 +26,12 @@ export const PrivateRoute = (props: Props) => {
   )
 
   if (!admin) return <Redirect to={LOGIN_URL} />
-  return children
+  return (
+    <Fragment>
+      <NavBar />
+      {children}
+    </Fragment>
+  )
 }
 
 const mapStateToProps = (state) => {
