@@ -8,9 +8,10 @@ import {
   Theme,
   Paper,
   Box,
-  Autocomplete
-} from '@mui/material'
-import { makeStyles } from '@mui/styles'
+  makeStyles
+} from '@material-ui/core'
+import { Autocomplete } from '@material-ui/lab'
+
 
 import { clientsActions } from 'state/clients'
 import { plumbersActions } from 'state/plumbers'
@@ -116,7 +117,9 @@ export const NewJobPage = (props: Props) => {
                 disablePortal
                 options={clientOptions}
                 autoComplete
+                getOptionSelected={(option) => clientId === option.value}
                 name='clientId'
+                getOptionLabel={(option) => option.label}
                 onChange={(_, selected) => setClientId(selected?.value || '')}
                 renderInput={(params) => (
                   <TextField
@@ -131,7 +134,9 @@ export const NewJobPage = (props: Props) => {
             <Grid item xs={12}>
               <Autocomplete
                 disablePortal
+                getOptionLabel={(option) => option.label}
                 options={plumberOptions}
+                getOptionSelected={(option) => plumberIds.includes(option.value)}
                 autoComplete
                 multiple
                 onChange={(_, selected) => {

@@ -7,14 +7,9 @@ import {
   Button,
   Theme,
   Paper,
-  Box
-} from '@mui/material'
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import {
-  LocalizationProvider,
-  DatePicker
-} from '@mui/lab'
-import { makeStyles } from '@mui/styles'
+  Box,
+  makeStyles
+} from '@material-ui/core'
 
 import { capitalize } from 'utilities/helpers'
 import { clientsActions } from 'state/clients'

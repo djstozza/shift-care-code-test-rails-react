@@ -44,7 +44,7 @@ describe('NewJobPage', () => {
 
   const submitButton = wrapper => wrapper.find({ type: 'submit' }).at(wrapper.find({ type: 'submit' }).length - 1)
 
-  const openAutocomplete = autocomplete => autocomplete.find('button').simulate('click')
+  const openAutocomplete = autocomplete => autocomplete.find('button').at(1).simulate('click')
 
   const li = wrapper => wrapper.find('li')
 

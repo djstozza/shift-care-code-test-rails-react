@@ -2,8 +2,7 @@ import React from 'react'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { Router } from 'react-router-dom'
-import { ThemeProvider } from '@mui/styles'
-import { createTheme } from '@mui/material/styles'
+import { MuiThemeProvider, createTheme } from '@material-ui/core'
 
 import history from 'state/history'
 
@@ -17,9 +16,9 @@ type MockedStoreProps = {
 const theme = createTheme()
 
 export const MuiWrapper = ({ children }:{ children: any }) => (
-  <ThemeProvider theme={theme}>
+  <MuiThemeProvider theme={theme}>
     {children}
-  </ThemeProvider>
+  </MuiThemeProvider>
 )
 
 export const MockedStore = ({ children, defaultState = {} }: MockedStoreProps) => (

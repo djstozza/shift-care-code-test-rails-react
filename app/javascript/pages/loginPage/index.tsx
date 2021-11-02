@@ -7,11 +7,9 @@ import {
   Button,
   Theme,
   Paper,
-  Grid
-} from '@mui/material'
-import { makeStyles } from '@mui/styles'
-
-import Link from 'components/common/link'
+  Grid,
+  makeStyles
+} from '@material-ui/core'
 
 import { authActions } from 'state/auth'
 

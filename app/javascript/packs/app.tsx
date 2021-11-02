@@ -1,7 +1,9 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { ThemeProvider } from '@mui/styles'
-import { createTheme } from '@mui/material/styles'
+import {
+  MuiThemeProvider,
+  createTheme
+} from '@material-ui/core'
 import LoadingBar from 'react-redux-loading-bar'
 
 import LoginPage from 'pages/loginPage'
@@ -22,7 +24,7 @@ const theme = createTheme()
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <MuiThemeProvider theme={theme}>
       <LoadingBar />
       <Switch>
         <Route path={LOGIN_URL} render={(props) => <LoginPage {...props} />} />
@@ -39,7 +41,7 @@ const App = () => {
           </Switch>
         </PrivateRoute>
       </Switch>
-    </ThemeProvider>
+    </MuiThemeProvider>
   );
 }
 

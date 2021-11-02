@@ -5,8 +5,10 @@ import {
   AppBar,
   Button,
   Box,
-  Toolbar
-} from '@mui/material'
+  Toolbar,
+  Theme,
+  makeStyles
+} from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { authActions } from 'state/auth'
 
@@ -14,13 +16,22 @@ type Props = {
   logOut: () => void
 }
 
+const useStyles = makeStyles(() => ({
+  toolbar: {
+    display: 'flex',
+    justifyContent: 'space-between'
+  }
+}))
+
 const NavBar = (props) => {
   const { logOut } = props
 
+  const classes = useStyles()
+
   return (
-    <Box mb={4} display='flex' justifyContent='right'>
+    <Box mb={4} >
       <AppBar position='static' color='primary'>
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <Button
             component={Link}
             to='/clients/new'
