@@ -5,6 +5,7 @@ import { createTheme } from '@mui/material/styles'
 import LoadingBar from 'react-redux-loading-bar'
 
 import LoginPage from 'pages/loginPage'
+import JobsPage from 'pages/jobsPage'
 import NewClientPage from 'pages/newClientPage'
 import NewPlumberPage from 'pages/newPlumberPage'
 import NewJobPage from 'pages/newJobPage'
@@ -29,6 +30,11 @@ const App = () => {
           <Switch>
             <Route exact path={`${CLIENTS_URL}/new`} render={(props) => <NewClientPage {...props} />} />
             <Route exact path={`${PLUMBERS_URL}/new`} render={(props) => <NewPlumberPage {...props} />} />
+            <Route
+              exact
+              path={['/', JOBS_URL]}
+              render={(props) => <JobsPage {...props} />}
+            />
             <Route exact path={`${JOBS_URL}/new`} render={(props) => <NewJobPage {...props} />} />
           </Switch>
         </PrivateRoute>
