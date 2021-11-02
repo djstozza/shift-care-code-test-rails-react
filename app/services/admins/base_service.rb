@@ -28,7 +28,7 @@ class Admins::BaseService < ApplicationService
         id: admin.id,
         exp: (ENV['SESSION_EXPIRY'].to_i || 120).minutes.from_now.to_i,
       },
-      Rails.application.secrets.secret_key_base,
+      Rails.application.secret_key_base,
     )
   end
 end
